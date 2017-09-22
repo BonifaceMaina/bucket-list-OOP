@@ -1,0 +1,86 @@
+{% extends "baselayout.html"%}
+{% block title %} Register with Us! {% endblock %}
+{% block logout%} 
+<div class="loginbtn">
+    <a href="/logout"> 
+        <button type="button" name="button" class=" btn-primary pull-right">Logout</button>
+    </a>
+</div>
+{% endblock%}
+{% block body %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">My BucketLists</h3>
+    <div class="col-md-offset-3 col-md-6">
+<!-- input to add bucketlist-->
+        <form name="addItem" method="post" action="{{url_for('bucketlists')}}">
+          {{ form.bucketlist(class_ = "form-control", placeholder = "Add a Bucketlist") }}<span class="addButton" onclick="addItem.submit()">Add</span>
+            <!-- <input type="text" name="bucketlist" placeholder="Add a Bucketlist"><span class="addButton" onclick="addItem.submit()">Add</span> -->
+        </form>    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>BucketList</th>
+          <th>Date Created</th>
+          <th>Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        
+    
+
+        
+<!--the added bucketlists-->
+        {% if bucketlistdict %}
+        {% for key, value in bucketlistdict.items() %}
+        <tr>
+          <td><a href="{{url_for('bucketlistitems')}}" title="Show Bucketlist">{{ value }}</a></td>
+          <td title="When the item was added"> <script> document.write(new Date().toLocaleDateString()); </script></td>
+          <td>
+<!--modal to edit items.-->
+              <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#{{ key }}myModal"></span> &nbsp; &nbsp;
+              <div class="modal fade" id="{{ key }}myModal" role="dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                      <form method="post" action="/editbucketlist" name="changelists">
+                          <input type="hidden" name="key" value="{{ key }}">
+                          <input type="text"  class="form-control" name="value" value="{{ value }}">
+                          <button type="submit" class="btn btn-success">Edit</button>
+                    </form>       
+                    </div>
+                    <div class="modal-footer">
+                    <button data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+              </div>   
+<!--form to delete selected item-->
+              <span class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#{{ key }}deleteModal"></span>
+              <div class="modal fade" id="{{ key }}deleteModal" role="dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                      <form method="post" action="/deletebucketlist" name="changelists">
+                          <input type="hidden" name="key" value="{{ key }}">
+                          <input type="text"  class="form-control" name="value" value="{{ value }}">
+                          <button type="submit" class="btn btn-success">Delete</button>
+                    </form>       
+                    </div>
+                    <div class="modal-footer">
+                    <button data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+              </div>                          
+          </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+  </div>
+  <div class="panel-footer">
+
+  </div>
+</div>
+{% endblock %}

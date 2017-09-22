@@ -1,0 +1,76 @@
+body{
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  line-height: 30px;
+}
+#background{
+  height: 100%;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.logo{
+  height: 150px;
+  width: 225px;
+}
+
+.loginbtn{
+  padding-top: 10px;
+}
+
+
+.panel-heading{
+      height: 90px;
+    }
+
+
+.panel-heading input {
+  border: none;
+  width: 75%;
+  height: 40px;
+  padding-bottom: 0px 10px 10px 10px;
+  float: left;
+  font-size: 16px;
+  color: black; }
+
+  .panel-heading h3{
+    text-align: center;
+    padding-bottom: 5px;
+  }
+
+.addButton {
+  padding: 10px;
+  width: 25%;
+  height: 40px;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+ }
+  .addButton:hover {
+    background-color: #bbb; }
+
+.text{
+  padding-top: 20px;
+}
+.text h1{
+  color: #fff;
+  font-weight: 200px;
+text-align: center;
+}
+
+.text p{
+  font-size: 16px;
+  font-weight: 100px;
+}
+.welcome{
+  padding-top: 80px;
+}
+
+.welcome-text{
+  color: #fff;
+  text-align: center;
+}

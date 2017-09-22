@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+     
+
+    <!-- Stylesheets required -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='../static/css/style.css') }}">
+
+  </head>
+  <body background="{{ url_for('static', filename='../static/images/background.jpeg') }}" id="background">
+    <div class="container">
+      <nav class="navbar">
+        <div class="">
+          <a class="navbar-brand logo" href="index">
+            <img src="{{ url_for('static', filename='../static/images/logo.png') }}" alt="BL" class="img-responsive">
+          </a>
+            {% block logout%}{% endblock %}
+        </div>
+      </nav>
+      {% block body %}
+      {% endblock %}
+
+    </div>
+    <script>
+        var date = new Date();
+        var day = date.getDate();
+        var month = date.getMonth() + 1
+        var year = date.getFullYear()
+        document.getElementById("date").innerHTML = day + "/" + month + "/" + year;
+      </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='../static/js/scripts.js') }}"></script>
+       
+  </body>
+</html>

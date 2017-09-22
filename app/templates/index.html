@@ -1,0 +1,79 @@
+{% extends "baselayout.html"%}
+{% block title %} Register with Us! {% endblock %}
+{% block body %}
+<div class="row text">
+  <div class="col-md-6 welcome">
+    <h1>Welcome</h1>
+    <div class="welcome-text">
+      <p>With BucketList, you can create an online bucket list that keeps track of your life goals while allowing you
+        to go live your life to the fullest. Simply add your goal, tag a location, and share the stories
+        to the people you care about.
+         Welcome aboard!</p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">          
+          {% if session['logged_in'] %}
+            <h4>You're logged in already!</h4> &nbsp;
+          <a href="/logout"> 
+              <button type="button" name="button" class=" btn-primary pull-right">Logout</button>
+          </a>
+      </div>
+      <div class="panel-body">
+        <span><a href="{{url_for('bucketlists')}}"><h5>Go to Bucketlists</h5></a></span>
+                    {% else %}
+        <h3> Register with Us!</h3>
+      </div>
+      <div class="panel-body">
+        
+        <form action="/" method="post">
+          {{ form.csrf_token }}
+          <div class="form-group row">
+            <label for="Name" class="col-sm-4">Name</label>
+            <div class="col-sm-8">
+              <input type="text" name="name" class="form-control" placeholder="Enter Name">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="name" class="col-sm-4">User Name</label>
+            <div class="col-sm-8">
+              {{ form.username(class_ = "form-control", placeholder = "Enter preferred username", required = True)}}
+              <!-- <input type="text" name="username" class="form-control" placeholder="Enter preferred username"> -->
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="password" class="col-sm-4">Password</label>
+            <div class="col-sm-8">
+              {{ form.password(class_ = "form-control", placeholder = "Enter Password", required = "True")}}
+              <!-- <input type="password" name="password" id="password"  class="form-control" placeholder="Enter Password" onkeyup="check_password();"> -->
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="password-confirm" class="col-sm-4">Confirm Password</label>
+            <div class="col-sm-8">
+              {{ form.confirm_password(class_ = "form-control",placeholder = "Confirm Password", required="True")}}
+              <!-- <input type="password" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="Confirm Password" onkeyup="check_password();"> -->
+            </div>
+            {% if error %}
+                <h4>{{ error }}</h4>
+                {% endif %}
+          </div>
+            
+
+          <div class="form-group row">
+            <div class="col-sm-offset-4 col-sm-8">
+              <button type="submit" class="btn btn-primary" id="submit">Register</button>
+              <span class="pull-right"> <i>Already a Member?&nbsp;</i><a href="{{url_for('login')}}"> Sign In</a></span>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+      {% endif %}
+  </div>
+</div>
+{% endblock %}

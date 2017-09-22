@@ -1,0 +1,106 @@
+{% extends "baselayout.html"%}
+{% block title %} Register with Us! {% endblock %}
+{% block logout%} 
+<div class="loginbtn">
+    <a href="/logout">
+        <button type="button" name="button" class=" btn-primary pull-right">Logout</button>
+    </a>
+</div>
+{% endblock%}
+
+{% block body %}
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Bucketlist Name</h3>
+      <div class="col-md-3"> 
+          <a href="/bucketlists"><h4>Return to Bucketlists</h4></a>
+      </div>
+    <div class="col-md-6">
+<!-- Input to add items to bucketlist-->
+        <form name="addItem" method="post" action="/bucketlistitems">
+          {{ form.bucketitem(class_ = "form-control", placeholder = "Add Item")}}<span class="addButton" onclick="addItem.submit()">Add</span>
+            <!-- <input type="text" name="bucketitem" placeholder=" Add Item"><span class="addButton" onclick="addItem.submit()">Add</span> -->
+        </form>        
+    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Date Added</th>
+          <th>Actions</th>
+          <th>Status</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Go to China</td>
+          <td>26th June 2017</td>
+          <td>
+            <a href="#">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>&nbsp; &nbsp;
+            <a href="#">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+          </td>
+          <td><input type="checkbox" name="done" checked></td>
+        </tr>
+
+<!--   printing the bucketlist items-->
+        {% if bucketitemdict %}
+        {% for key, value in bucketitemdict.items() %}
+      
+        <tr>
+          <td>{{ value }}</td>
+          <td><script> document.write(new Date().toLocaleDateString()); </script> </td>
+          <td>
+<!-- modal to edit bucketlist items -->
+             <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#{{ key }}myModal"></span> &nbsp; &nbsp;
+              <div class="modal fade" id="{{ key }}myModal" role="dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                      <form method="post" action="/editbucketlistitems" name="changelists">
+                          <input type="hidden" name="key" value="{{ key }}">
+                          <input type="text"  class="form-control" name="value" value="{{ value }}">
+                          <button type="submit" class="btn btn-success">Edit</button>
+                    </form>       
+                    </div>
+                    <div class="modal-footer">
+                    <button data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+              </div>              
+<!--form to delete bucketlist items-->
+              
+              <span class="glyphicon glyphicon-trash" data-toggle="modal" data-target="#{{key}}deleteModal"></span>
+              <div class="modal fade" id="{{key}}deleteModal" role="dialog">
+                <div class="modal-content">
+                  <div class="modal-body">
+                      <form method="post" action="/deletebucketlistitems" name="changelists">
+                          <input type="hidden" name="key" value="{{ key }}">
+                          <input type="text"  class="form-control" name="value" value="{{ value }}">
+                          <button type="submit" class="btn btn-success">Delete</button>
+                    </form>       
+                    </div>
+                    <div class="modal-footer">
+                    <button data-dismiss="modal">Dismiss</button>
+                    </div>
+                  </div>
+              </div>     
+              
+          </td>
+          <td><input type="checkbox" name="done"></td>
+        </tr>        
+        
+        {% endfor %}
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer">
+  </div>
+</div>
+{% endblock %}
